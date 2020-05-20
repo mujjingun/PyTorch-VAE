@@ -17,8 +17,8 @@ def insert(node, dic):
         else:
             node[key] = value
 
-def run_func(**kwargs):
-    with open('configs/bbvae.yaml', 'r') as file:
+def run_func(filename, **kwargs):
+    with open(filename, 'r') as file:
         try:
             config = yaml.safe_load(file)
         except yaml.YAMLError as exc:
