@@ -51,7 +51,7 @@ def run_func(filename, **kwargs):
                     log_save_interval=100,
                     train_percent_check=config['exp_params']['fraction'],
                     val_percent_check=1.,
-                    num_sanity_val_steps=5,
+                    num_sanity_val_steps=0,
                     early_stop_callback = False,
                     **config['trainer_params'])
 
@@ -59,10 +59,4 @@ def run_func(filename, **kwargs):
     runner.fit(experiment)
 
     print("======= Evaluating Trained Model =======")
-    losses = []
-    for batch in experiment.val_dataloader()[0]:
-        real_img, labels = batch
-        results = model.forward(real_img, labels = labels)
-        val_loss = model.loss_function(*results, M_N = 1)
-        losses.append(val_loss["loss"])
-    return np.mean(losses)
+    return experiment.val_loss

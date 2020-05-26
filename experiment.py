@@ -60,6 +60,7 @@ class VAEXperiment(pl.LightningModule):
         avg_loss = torch.stack([x['loss'] for x in outputs]).mean()
         tensorboard_logs = {'avg_val_loss': avg_loss}
         self.sample_images()
+        self.val_loss = avg_loss
         return {'val_loss': avg_loss, 'log': tensorboard_logs}
 
     def sample_images(self):
