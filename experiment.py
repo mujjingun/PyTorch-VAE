@@ -160,7 +160,7 @@ class VAEXperiment(pl.LightningModule):
                                                         transform=transform,
                                                         download=True),
                                                  batch_size= 144,
-                                                 shuffle = True,
+                                                 shuffle = False,
                                                  drop_last=True)
             self.num_val_imgs = len(self.sample_dataloader)
         else:
