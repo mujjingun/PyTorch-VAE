@@ -59,4 +59,4 @@ def run_func(filename, **kwargs):
     runner.fit(experiment)
 
     print("======= Evaluating Trained Model =======")
-    return experiment.val_loss
+    return experiment.val_loss.item()
