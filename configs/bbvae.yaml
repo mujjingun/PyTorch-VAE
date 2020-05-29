@@ -6,6 +6,7 @@ model_params:
   gamma: 10.0
   max_capacity: 25
   Capacity_max_iter: 10000
+  hidden_dims: [32, 64, 128]
 
 exp_params:
   dataset: celeba
