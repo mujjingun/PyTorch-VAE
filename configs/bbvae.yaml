@@ -21,6 +21,7 @@ trainer_params:
   gpus:
   max_nb_epochs: 3
   max_epochs: 3
+  check_val_every_n_epoch: 1
 
 logging_params:
   save_dir: "logs/"

@@ -40,8 +40,6 @@ class VAEXperiment(pl.LightningModule):
                                               optimizer_idx=optimizer_idx,
                                               batch_idx = batch_idx)
 
-        self.logger.experiment.log({key: val.item() for key, val in train_loss.items()})
-
         return train_loss
 
     def validation_step(self, batch, batch_idx, optimizer_idx = 0):
@@ -69,11 +67,6 @@ class VAEXperiment(pl.LightningModule):
         test_input = test_input.to(self.curr_device)
         test_label = test_label.to(self.curr_device)
         recons = self.model.generate(test_input, labels = test_label)
-        vutils.save_image(recons.data,
-                          f"{self.logger.save_dir}{self.logger.name}/version_{self.logger.version}/"
-                          f"recons_{self.logger.name}_{self.current_epoch}.png",
-                          normalize=True,
-                          nrow=12)
 
         # vutils.save_image(test_input.data,
         #                   f"{self.logger.save_dir}{self.logger.name}/version_{self.logger.version}/"
@@ -85,11 +78,6 @@ class VAEXperiment(pl.LightningModule):
             samples = self.model.sample(144,
                                         self.curr_device,
                                         labels = test_label)
-            vutils.save_image(samples.cpu().data,
-                              f"{self.logger.save_dir}{self.logger.name}/version_{self.logger.version}/"
-                              f"{self.logger.name}_{self.current_epoch}.png",
-                              normalize=True,
-                              nrow=12)
         except:
             pass
 
@@ -141,7 +129,7 @@ class VAEXperiment(pl.LightningModule):
             dataset = CelebA(root = self.params['data_path'],
                              split = "train",
                              transform=transform,
-                             download=True)
+                             download=False)
         else:
             raise ValueError('Undefined dataset type')
 
@@ -159,7 +147,7 @@ class VAEXperiment(pl.LightningModule):
             self.sample_dataloader =  DataLoader(CelebA(root = self.params['data_path'],
                                                         split = "test",
                                                         transform=transform,
-                                                        download=True),
+                                                        download=False),
                                                  batch_size= 144,
                                                  shuffle = False,
                                                  drop_last=True)
