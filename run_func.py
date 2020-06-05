@@ -36,6 +36,8 @@ def run_func(config, **kwargs):
                     val_percent_check=1.,
                     num_sanity_val_steps=0,
                     early_stop_callback=False,
+                    checkpoint_callback=False,
+                    logger=False,
                     weights_summary=None,
                     **config['trainer_params'])
     runner.fit(experiment)
